@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",                   // Target ECMAScript version
+    "module": "ESNext",                   // Module system
+    "jsx": "react-native",                // Enable JSX for React Native
+    "strict": true,                       // Enable strict type-checking
+    "noEmit": true,                       // Prevent emitting compiled files
+    "moduleResolution": "node",           // Resolve modules as Node.js does
+    "baseUrl": ".",                       // Base directory for imports
+    "paths": {
+      "@/*": ["src/*"]                    // Optional: Define path aliases
+    },
+    "allowSyntheticDefaultImports": true, // Allow default imports from modules
+    "esModuleInterop": true               // Enable ES module interop
+  },
+  "include": ["src/**/*", "index.ts", "App.tsx"], // Files to include
+  "exclude": ["node_modules", "babel.config.js", "metro.config.js"] // Excluded files
+}
