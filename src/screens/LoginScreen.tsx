@@ -62,7 +62,7 @@ const LoginScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Welcome to Pepper Ghost</Text>
+      <Text style={styles.title}>Welcome to Peppers Ghost</Text>
       <TextInput
         placeholder="Username or Email"
         value={username}

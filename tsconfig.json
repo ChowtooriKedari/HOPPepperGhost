@@ -1,18 +1,29 @@
 {
   "compilerOptions": {
-    "target": "ESNext",                   // Target ECMAScript version
-    "module": "ESNext",                   // Module system
-    "jsx": "react-native",                // Enable JSX for React Native
-    "strict": true,                       // Enable strict type-checking
-    "noEmit": true,                       // Prevent emitting compiled files
-    "moduleResolution": "node",           // Resolve modules as Node.js does
-    "baseUrl": ".",                       // Base directory for imports
+    "target": "ESNext",
+    "module": "ESNext",
+    "jsx": "react-native",
+    "strict": true,
+    "noEmit": true,
+    "moduleResolution": "node",
+    "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"]                    // Optional: Define path aliases
+      "@/*": [
+        "src/*"
+      ]
     },
-    "allowSyntheticDefaultImports": true, // Allow default imports from modules
-    "esModuleInterop": true               // Enable ES module interop
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true
   },
-  "include": ["src/**/*", "index.ts", "App.tsx"], // Files to include
-  "exclude": ["node_modules", "babel.config.js", "metro.config.js"] // Excluded files
+  "include": [
+    "src/**/*",
+    "index.ts",
+    "App.tsx"
+  ],
+  "exclude": [
+    "node_modules",
+    "babel.config.js",
+    "metro.config.js"
+  ],
+  "extends": "expo/tsconfig.base"
 }
