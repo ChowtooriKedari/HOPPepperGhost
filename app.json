@@ -1,6 +1,6 @@
 {
   "name": "HOPVideoUploadApplication",
-  "displayName": "HOPVideoUploadApplication",
+  "slug": "hopvideouploadapplication",
   "extra": {
     "eas": {
       "projectId": "47f8c5cb-4822-4930-9ef1-08449944251a"

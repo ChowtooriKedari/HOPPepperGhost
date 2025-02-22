@@ -119,6 +119,9 @@ const HomeScreen = ({ navigation }) => {
     } else if (sortOption === 'Last Updated') {
       sortedVideos.sort((a, b) => new Date(b.uploadDate) - new Date(a.uploadDate));
     }
+    else if (sortOption === 'sortDefault') {
+      sortedVideos;
+    }
     return sortedVideos;
   };
 
@@ -127,10 +130,11 @@ const HomeScreen = ({ navigation }) => {
       <View style={styles.searchBarContainer}>
         <TextInput
           style={styles.searchInput}
+          style={[styles.searchInput, { color: '#fff' }]} // Text color here
           placeholder="Search"
           value={searchQuery}
           onChangeText={(text) => setSearchQuery(text)}
-          placeholderTextColor="#ccc"
+          placeholderTextColor="#fff"
         />
         <TouchableOpacity onPress={fetchVideos} style={styles.searchIcon}>
           <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="none">
@@ -145,17 +149,17 @@ const HomeScreen = ({ navigation }) => {
    {/* Sort and Category Dropdowns */}
    <View style={styles.dropdownContainer}>
         <View style={styles.dropdown}>
-          <Text style={styles.dropdownLabel}>Sort by:</Text>
           <Picker selectedValue={sortOption} onValueChange={(itemValue) => setSortOption(itemValue)} style={styles.picker}>
+            <Picker.Item label="Sort By" value="sortDefault" />
             <Picker.Item label="A-Z" value="A-Z" />
             <Picker.Item label="Z-A" value="Z-A" />
             <Picker.Item label="Last Updated" value="Last Updated" />
           </Picker>
         </View>
         <View style={styles.dropdown}>
-          <Text style={styles.dropdownLabel}>Category:</Text>
           <Picker selectedValue={category} onValueChange={(itemValue) => setCategory(itemValue)} style={styles.picker}>
-            <Picker.Item label="All" value="all" />
+            <Picker.Item label="Category" value="all" />
+            {/* <Picker.Item label="All" value="all" /> */}
             <Picker.Item label="Category 1" value="category1" />
             <Picker.Item label="Category 2" value="category2" />
           </Picker>
@@ -214,6 +218,7 @@ const styles = StyleSheet.create({
   logoutButton: {
     marginRight: 15,
   },
+  
   searchBarContainer: {
     color:'#fff',
     flexDirection: 'row',
@@ -222,13 +227,14 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     borderWidth: 1,
     borderColor:'#fff'
-
   },
+
   searchInput: {
     flex: 1,
     paddingHorizontal: 10,
     height: 40,
   },
+
   searchIcon: {
     padding: 10,
     borderTopRightRadius: 5,
@@ -236,27 +242,33 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+
   dropdownContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginBottom: 10,
     borderRadius:20
   },
+
   dropdown: {
     flex: 1,
     marginHorizontal: 5,
   },
+
   dropdownLabel: {
     color: '#fff',
     fontSize: 16,
     marginBottom: 10,
   },
+
   picker: {
     color: '#fff',
     backgroundColor: '#4e148c',
     borderRadius: 10,
   },
+
   videoGrid: {
+    marginLeft:5,
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'center',
@@ -264,17 +276,18 @@ const styles = StyleSheet.create({
   },
 
   videoItem: {
-    width: '50%', // Ensures spacing between videos
+    width: '49%', // Ensures spacing between videos
     aspectRatio: 9 / 12, // Keeps video aspect ratio
-    borderRadius: 15,
-    marginBottom: 20, // Adds space between rows
+    borderRadius: 25,
+    marginBottom: 4, // Adds space between rows
     backgroundColor: '#000',
     overflow: 'hidden',
-    marginRight:5
+    marginRight:4,
   },
 
   thumbnailPlaceholder: {
     flex: 1,
+    margintop:50,
     justifyContent: 'flex-end',
     alignItems: 'center',
     borderRadius: 15,
@@ -284,8 +297,10 @@ const styles = StyleSheet.create({
 
   thumbnail: {
     width: '100%',
-    height: '100%',
-    borderRadius: 15,
+    height: '94%',
+    borderRadius: 20,
+    marginTop:4,
+    marginBottom:1
   },
 
   gradientOverlay: {
@@ -296,6 +311,7 @@ const styles = StyleSheet.create({
   },
 
   title: {
+    marginTop:6,
     color: '#fff',
     fontSize: 14,
     fontWeight: 'bold',
@@ -313,7 +329,9 @@ const styles = StyleSheet.create({
     color: '#bbb',
     fontSize: 10,
     textAlign: 'center',
+    marginBottom:10
   },
+
   uploadButtonContainer: {
     position: 'absolute',
     bottom: 10,
