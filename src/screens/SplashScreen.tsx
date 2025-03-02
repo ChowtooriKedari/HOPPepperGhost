@@ -71,7 +71,7 @@ const SplashScreen = ({ navigation }) => {
     <View style={styles.container} {...panResponder.panHandlers}>
       {/* Background Video (Same for Intro & Tutorial) */}
       <Video
-        source={require("../assets/intro.mp4")} // Ensure this file exists
+        source={require("../assets/appIntro.mp4")} // Ensure this file exists
         style={styles.backgroundVideo}
         resizeMode="cover"
         repeat

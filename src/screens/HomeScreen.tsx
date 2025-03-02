@@ -9,6 +9,7 @@ import {
   Image,
   Button,
   ActivityIndicator,
+  Modal,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Picker } from '@react-native-picker/picker';
@@ -17,6 +18,8 @@ import { createThumbnail } from 'react-native-create-thumbnail';
 import { Svg, Path } from 'react-native-svg';
 import LinearGradient from 'react-native-linear-gradient';
 import { ConfigContext } from '../Navigation/AppNavigator';
+import Video from 'react-native-video';
+import RNPickerSelect from "react-native-picker-select";
 
 const HomeScreen = ({ navigation }) => {
   const config = useContext(ConfigContext);
@@ -26,6 +29,7 @@ const HomeScreen = ({ navigation }) => {
   const [category, setCategory] = useState('all');
   const [thumbnails, setThumbnails] = useState({});
   const [isLoading, setIsLoading] = useState(false);
+  const [isMenuVisible, setIsMenuVisible] = useState(false); // Hamburger menu state
 
   useEffect(() => {
     if (config?.showLogin) {
@@ -45,28 +49,29 @@ const HomeScreen = ({ navigation }) => {
   };
 
   useEffect(() => {
-    if (config?.showLogin) {
-      navigation.setOptions({
-        headerLeft: null,
-        headerRight: () => (
-          <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
-            <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none">
-              <Path
-                d="M16 13v-2H8V9l-4 3 4 3v-2h8Zm6-9v16a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2ZM20 4H4v16h16V4Z"
-                fill="#fff"
-              />
-            </Svg>
-          </TouchableOpacity>
-        ),
-        headerTitleStyle: {
-          color: '#fff',
-        },
-        headerStyle: {
-          backgroundColor: '#6a1b9a',
-        },
-      });
-    }
-  }, [navigation, config]);
+    navigation.setOptions({
+      headerLeft: null,
+      headerRight: () => (
+        <TouchableOpacity onPress={() => setIsMenuVisible(true)} style={styles.hamburgerButton}>
+          <Svg width="30" height="30" viewBox="0 0 24 24" fill="none">
+            <Path
+              d="M3 6h18M3 12h18m-18 6h18"
+              stroke="#fff"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </Svg>
+        </TouchableOpacity>
+      ),
+      headerTitleStyle: {
+        color: '#fff',
+      },
+      headerStyle: {
+        backgroundColor: '#6a1b9a',
+      },
+    });
+  }, [navigation]);
 
   useEffect(() => {
     fetchVideos();
@@ -119,14 +124,81 @@ const HomeScreen = ({ navigation }) => {
     } else if (sortOption === 'Last Updated') {
       sortedVideos.sort((a, b) => new Date(b.uploadDate) - new Date(a.uploadDate));
     }
-    else if (sortOption === 'sortDefault') {
-      sortedVideos;
-    }
     return sortedVideos;
   };
 
   return (
     <LinearGradient colors={['#1a012a', '#4e148c']} style={styles.container}>
+      {/* Hamburger Menu Modal */}
+      {/* Hamburger Menu Modal */}
+{/* Hamburger Menu Modal */}
+{/* Hamburger Menu Modal */}
+<Modal
+  transparent
+  visible={isMenuVisible}
+  animationType="fade"
+  onRequestClose={() => setIsMenuVisible(false)}
+>
+  <TouchableOpacity
+    style={styles.menuOverlay}
+    activeOpacity={1}
+    onPress={() => setIsMenuVisible(false)} // Close when clicking outside
+  >
+    <View style={styles.menuContainer}>
+      {/* Close Button */}
+      <TouchableOpacity
+        style={styles.closeButton}
+        onPress={() => setIsMenuVisible(false)}
+      >
+        <Svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <Path
+            d="M18 6L6 18M6 6l12 12"
+            stroke="#fff"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </Svg>
+      </TouchableOpacity>
+
+      {/* About Option */}
+      <TouchableOpacity
+        onPress={() => {
+          setIsMenuVisible(false);
+          navigation.navigate("About");
+        }}
+        style={styles.About}
+      >
+        <Text style={styles.menuText}>About</Text>
+      </TouchableOpacity>
+
+      {/* Tutorial Option */}
+      <TouchableOpacity
+        onPress={() => {
+          setIsMenuVisible(false);
+          navigation.navigate("Splash");
+        }}
+        style={styles.WelcomePage}
+      >
+        <Text style={styles.menuText}>Welcome Page</Text>
+      </TouchableOpacity>
+
+      {/* Logout Option (Only if config?.showLogin is true) */}
+      {!config?.showLogin && (
+        <TouchableOpacity onPress={handleLogout} style={styles.menuItem}>
+          <Svg width="24" height="24" viewBox="0 0 24 24" fill="none" style={styles.menuIcon}>
+            <Path
+              d="M16 13v-2H8V9l-4 3 4 3v-2h8Zm6-9v16a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2ZM20 4H4v16h16V4Z"
+              fill="#fff"
+            />
+          </Svg>
+          <Text style={styles.menuText}>Logout</Text>
+        </TouchableOpacity>
+      )}
+    </View>
+  </TouchableOpacity>
+</Modal>
+
       <View style={styles.searchBarContainer}>
         <TextInput
           style={styles.searchInput}
@@ -146,29 +218,46 @@ const HomeScreen = ({ navigation }) => {
         </TouchableOpacity>
       </View>
 
-   {/* Sort and Category Dropdowns */}
-   <View style={styles.dropdownContainer}>
-        <View style={styles.dropdown}>
-          <Picker selectedValue={sortOption} onValueChange={(itemValue) => setSortOption(itemValue)} style={styles.picker}>
-            <Picker.Item label="Sort By" value="sortDefault" />
-            <Picker.Item label="A-Z" value="A-Z" />
-            <Picker.Item label="Z-A" value="Z-A" />
-            <Picker.Item label="Last Updated" value="Last Updated" />
-          </Picker>
-        </View>
-        <View style={styles.dropdown}>
-          <Picker selectedValue={category} onValueChange={(itemValue) => setCategory(itemValue)} style={styles.picker}>
-            <Picker.Item label="Category" value="all" />
-            {/* <Picker.Item label="All" value="all" /> */}
-            <Picker.Item label="Category 1" value="category1" />
-            <Picker.Item label="Category 2" value="category2" />
-          </Picker>
-        </View>
-      </View>
-      
+      {/* <View style={styles.pickerWrapper}>
+  <RNPickerSelect
+    onValueChange={(value) => setSortOption(value)}
+    items={[
+      { label: "Sort By", value: "sortDefault" },
+      { label: "A-Z", value: "A-Z" },
+      { label: "Z-A", value: "Z-A" },
+      { label: "Last Updated", value: "Last Updated" },
+    ]}
+    style={{
+      inputIOS: styles.pickerInput,
+      inputAndroid: styles.pickerInput,
+      placeholder: styles.placeholderText,
+    }}
+    useNativeAndroidPickerStyle={false}
+    placeholder={{ label: "Sort By", value: "sortDefault" }}
+  />
+</View>
+
+
+<View style={styles.pickerWrapper}>
+  <RNPickerSelect
+    onValueChange={(value) => setCategory(value)}
+    items={[
+      { label: "Category", value: "all" },
+      { label: "Category 1", value: "category1" },
+      { label: "Category 2", value: "category2" },
+    ]}
+    style={{
+      inputIOS: styles.pickerInput,
+      inputAndroid: styles.pickerInput,
+      placeholder: styles.placeholderText,
+    }}    useNativeAndroidPickerStyle={false}
+    placeholder={{ label: "Category", value: "all" }}
+  />
+</View> */}
       {isLoading ? (
         <ActivityIndicator size="large" color="#6a1b9a" />
       ) : (
+
         <FlatList
           data={videos}
           keyExtractor={(item) => item.videoId.toString()}
@@ -179,13 +268,19 @@ const HomeScreen = ({ navigation }) => {
                 style={styles.thumbnailPlaceholder}
                 onPress={() => navigation.navigate('VideoPlayerScreen', { videoUrl: item.videoUrl })}
               >
-                {thumbnails[item.videoId] ? (
-                  <Image source={{ uri: thumbnails[item.videoId] }} style={styles.thumbnail} />
-                ) : (
-                  <Text style={styles.thumbnailText}>Loading...</Text>
-                )}
+                <Video
+                  source={{ uri: item.videoUrl }} // Video URL from API
+                  style={styles.videoPlayer}
+                  resizeMode="cover"
+                  repeat
+                  muted
+                  playInBackground={false} // Ensures it stops when navigating away
+                  playWhenInactive={false}
+                  ignoreSilentSwitch="obey"
+                />
                 <LinearGradient colors={['transparent', 'black']} style={styles.overlay} />
               </TouchableOpacity>
+
               <View style={styles.videoDetails}>
                 <Text style={styles.title}>{item.title}</Text>
                 <Text style={styles.description}>{item.description}</Text>
@@ -194,8 +289,10 @@ const HomeScreen = ({ navigation }) => {
             </View>
           )}
         />
+
+
       )}
-       {config?.showUpload && (
+      {config?.showUpload && (
         <View style={styles.uploadButtonContainer}>
           <Button title="UPLOAD VIDEO" onPress={() => navigation.navigate("Upload")} color="#1a012a" />
         </View>
@@ -205,6 +302,88 @@ const HomeScreen = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
+  inputIOS: {
+    fontSize: 16,
+    paddingVertical: 12,
+    paddingHorizontal: 10,
+    borderWidth: 1,
+    borderColor: "#fff",
+    borderRadius: 8,
+    color: "#fff",
+    backgroundColor: "#4e148c", // Purple background
+  },
+  inputAndroid: {
+    fontSize: 16,
+    paddingVertical: 12,
+    paddingHorizontal: 10,
+    borderWidth: 1,
+    borderColor: "#fff",
+    borderRadius: 8,
+    color: "#fff",
+    backgroundColor: "#4e148c",
+  },
+  placeholder: {
+    color: "#ccc", // Lighter text for placeholder
+  },
+  hamburgerButton: {
+    marginRight: 15,
+    padding: 10,
+  },
+  menuOverlay: {
+    flex: 1,
+    backgroundColor: "rgba(0, 0, 0, 0.6)", // Dim background
+    justifyContent: "flex-start",
+    alignItems: "flex-end", // Align menu to the right
+  },
+  menuContainer: {
+    backgroundColor: "#121212",
+    width: "50%", // Cover half the screen width
+    height: "100%", // Full height
+    paddingVertical: 20,
+    paddingHorizontal: 15,
+    borderTopLeftRadius: 10, // Rounded left side
+    borderBottomLeftRadius: 10,
+  },
+  closeButton: {
+    position: "absolute",
+    top: 55,
+    left: 55, // Align close button to left (inside menu)
+    padding: 10,
+  },
+  menuHeader: {
+    color: "#fff",
+    fontSize: 18,
+    fontWeight: "bold",
+    marginBottom: 20,
+  },
+  About: {
+    marginTop:65,
+    flexDirection: "row", // Align icon and text in a row
+    alignItems: "center", // Align items vertically
+    paddingVertical: 15,
+  },
+  WelcomePage: {
+    // marginTop:10,
+    flexDirection: "row", // Align icon and text in a row
+    alignItems: "center", // Align items vertically
+    paddingVertical: 15,
+  },
+
+  menuItem: {
+    flexDirection: "row", // Align icon and text in a row
+    alignItems: "center", // Align items vertically
+    paddingVertical: 15,
+  },
+  menuText: {
+    color: "#fff",
+    fontSize: 16,
+    marginLeft: 10, // Space between icon and text
+  },
+  menuIcon: {
+    width: 24,
+    height: 24,
+  },
+
   container: {
     flex: 1,
     padding: 10,
@@ -218,15 +397,15 @@ const styles = StyleSheet.create({
   logoutButton: {
     marginRight: 15,
   },
-  
+
   searchBarContainer: {
-    color:'#fff',
+    color: '#fff',
     flexDirection: 'row',
     alignItems: 'center',
     borderRadius: 5,
     marginBottom: 10,
     borderWidth: 1,
-    borderColor:'#fff'
+    borderColor: '#fff'
   },
 
   searchInput: {
@@ -247,7 +426,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginBottom: 10,
-    borderRadius:20
+    borderRadius: 20,
+    paddingHorizontal: 5,
   },
 
   dropdown: {
@@ -268,7 +448,7 @@ const styles = StyleSheet.create({
   },
 
   videoGrid: {
-    marginLeft:5,
+    marginLeft: 5,
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'center',
@@ -282,12 +462,12 @@ const styles = StyleSheet.create({
     marginBottom: 4, // Adds space between rows
     backgroundColor: '#000',
     overflow: 'hidden',
-    marginRight:4,
+    marginRight: 4,
   },
 
   thumbnailPlaceholder: {
     flex: 1,
-    margintop:50,
+    margintop: 50,
     justifyContent: 'flex-end',
     alignItems: 'center',
     borderRadius: 15,
@@ -299,8 +479,8 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '94%',
     borderRadius: 20,
-    marginTop:4,
-    marginBottom:1
+    marginTop: 4,
+    marginBottom: 1
   },
 
   gradientOverlay: {
@@ -311,7 +491,7 @@ const styles = StyleSheet.create({
   },
 
   title: {
-    marginTop:6,
+    marginTop: 6,
     color: '#fff',
     fontSize: 14,
     fontWeight: 'bold',
@@ -329,7 +509,7 @@ const styles = StyleSheet.create({
     color: '#bbb',
     fontSize: 10,
     textAlign: 'center',
-    marginBottom:10
+    marginBottom: 10
   },
 
   uploadButtonContainer: {
@@ -339,7 +519,32 @@ const styles = StyleSheet.create({
     right: 10,
     zIndex: 1,
     elevation: 5,
-    borderRadius:50
+    borderRadius: 50
+  },
+  videoPlayer: {
+    width: "100%",
+    overflow: "hidden",
+    height: '94%',
+    borderRadius: 20,
+    marginTop: 4,
+    marginBottom: 1
+  },
+  pickerWrapper: {
+    borderWidth: 1,
+    borderColor: "#fff",
+    borderRadius: 8,
+    backgroundColor: "#4e148c",
+    marginBottom: 10,
+  },
+  pickerInput: {
+    fontSize: 16,
+    paddingVertical: 12,
+    paddingHorizontal: 10,
+    color: "#fff",
+  },
+  placeholderText: {
+    color: "#ccc", // Lighter text for placeholder
   },
 });
+
 export default HomeScreen;

@@ -10,6 +10,7 @@ import VideoPlayerScreen from "../screens/VideoPlayerScreen";
 import SplashScreen from "../screens/SplashScreen";
 import SignUpScreen from "../screens/SignUpScreen";
 import ForgotPasswordScreen from "../screens/ForgotPasswordScreen";
+import AboutScreen from "../screens/AboutScreen";
 
 const Stack = createStackNavigator();
 export const AuthContext = createContext(null);
@@ -55,13 +56,19 @@ export default function App() {
 
   // **Wait until config is loaded before rendering anything**
   if (loading || initialRoute === null) {
-    return null; // ✅ Show nothing until config is ready
+    return null; 
   }
 
   return (
     <ConfigContext.Provider value={config}>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName={initialRoute}>
+        <Stack.Navigator initialRouteName={initialRoute}
+              screenOptions={{
+                headerStyle: { backgroundColor: "#6a1b9a" }, // Purple background
+                headerTintColor: "#fff", // White text
+                headerTitleAlign: "center",
+              }}
+        >
           <Stack.Screen
             name="Splash"
             component={SplashScreen}
@@ -77,6 +84,7 @@ export default function App() {
             component={VideoPlayerScreen}
             options={{ headerShown: false }}
           />
+          <Stack.Screen name="About" component={AboutScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </ConfigContext.Provider>
