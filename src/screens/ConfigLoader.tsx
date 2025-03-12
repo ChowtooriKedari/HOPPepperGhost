@@ -3,7 +3,7 @@ import { ActivityIndicator, Text, View } from "react-native";
 import axios from "axios";
 
 // S3 JSON URL (Replace with your actual S3 URL)
-const S3_JSON_URL = "https://peppersghostconfig.s3.eu-north-1.amazonaws.com/peppersGhostConfig.json";
+const S3_JSON_URL = "https://pepperghostconfiguseast.s3.us-east-1.amazonaws.com/peppersGhostConfig.json";
 
 // Create a context to store config globally
 export const ConfigContext = createContext(null);
@@ -18,7 +18,8 @@ const ConfigLoader = ({ children }) => {
         const response = await axios.get(S3_JSON_URL);
         setConfig(response.data);
       } catch (error) {
-        console.error("Error fetching config:", error);
+        console.log("Error");
+        console.error("Error fetching config new: ", error);
       } finally {
         setLoading(false);
       }

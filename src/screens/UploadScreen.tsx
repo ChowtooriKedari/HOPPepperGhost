@@ -65,7 +65,7 @@ const UploadScreen = () => {
     setLoading(true);
     try {
       const metadataResponse = await axios.get(
-        'https://efogwy1o0e.execute-api.eu-north-1.amazonaws.com/dev/generatePreSignedURL',
+        'https://ibn3ijxg8b.execute-api.us-east-1.amazonaws.com/dev/generatePreSignedURL',
         {
           params: {
             file_name: file.name,
@@ -103,7 +103,7 @@ const UploadScreen = () => {
   const saveVideoMetadata = async (publicUrl) => {
     try {
       await axios.post(
-        'https://efogwy1o0e.execute-api.eu-north-1.amazonaws.com/dev/saveVideoMetadata',
+        'https://ibn3ijxg8b.execute-api.us-east-1.amazonaws.com/dev/saveVideoMetadata',
         {
           videoId: new Date().getTime().toString(),
           title,

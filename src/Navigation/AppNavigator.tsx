@@ -19,7 +19,7 @@ export const AuthContext = createContext(null);
 export const ConfigContext = createContext(null);
 
 // AWS S3 Config URL
-const S3_JSON_URL = "https://peppersghostconfig.s3.eu-north-1.amazonaws.com/peppersGhostConfig.json";
+const S3_JSON_URL = "https://pepperghostconfiguseast.s3.us-east-1.amazonaws.com/peppersGhostConfig.json";
 
 export default function App() {
   const [config, setConfig] = useState(null);

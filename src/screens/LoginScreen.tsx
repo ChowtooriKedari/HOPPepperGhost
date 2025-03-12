@@ -16,8 +16,8 @@ const LoginScreen = ({ navigation }) => {
   const [showPassword, setShowPassword] = useState(false); // Toggle for password visibility
 
   // AWS Cognito Configuration
-  const clientId = "44or5nn67tqogs1e2lg3tmpdff"; // Replace with your Cognito App Client ID
-  const region = "eu-north-1"; // Replace with your AWS Region
+  const clientId = "3jcmcoesbkdm2asd364v1q6das"; // Replace with your Cognito App Client ID
+  const region = "us-east-1"; // Replace with your AWS Region
 
   AWS.config.update({
     region: region,

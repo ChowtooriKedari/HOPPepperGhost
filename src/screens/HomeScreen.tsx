@@ -85,9 +85,10 @@ const HomeScreen = ({ navigation }) => {
     setIsLoading(true);
     try {
       const response = await axios.get(
-        `https://efogwy1o0e.execute-api.eu-north-1.amazonaws.com/dev/fetchVideos`,
+        `https://ibn3ijxg8b.execute-api.us-east-1.amazonaws.com/dev/fetchVideos`,
         { params: { searchQuery, category } }
       );
+      console.log(response.data);
       const parsedVideos = response.data;
       const sortedVideos = sortVideos(parsedVideos);
       setVideos(sortedVideos);
@@ -184,7 +185,7 @@ const HomeScreen = ({ navigation }) => {
       </TouchableOpacity>
 
       {/* Logout Option (Only if config?.showLogin is true) */}
-      {!config?.showLogin && (
+      {config?.showLogin && (
         <TouchableOpacity onPress={handleLogout} style={styles.menuItem}>
           <Svg width="24" height="24" viewBox="0 0 24 24" fill="none" style={styles.menuIcon}>
             <Path
@@ -294,7 +295,7 @@ const HomeScreen = ({ navigation }) => {
       )}
       {config?.showUpload && (
         <View style={styles.uploadButtonContainer}>
-          <Button title="UPLOAD VIDEO" onPress={() => navigation.navigate("Upload")} color="#1a012a" />
+          <Button title="UPLOAD VIDEO" onPress={() => navigation.navigate("Upload")} color="#fff" />
         </View>
       )}
     </LinearGradient>
