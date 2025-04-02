@@ -92,7 +92,7 @@ const HomeScreen = ({ navigation }) => {
       const parsedVideos = response.data;
       const sortedVideos = sortVideos(parsedVideos);
       setVideos(sortedVideos);
-      generateThumbnails(parsedVideos);
+      // generateThumbnails(parsedVideos);
     } catch (error) {
       console.error('Error fetching videos:', error);
     }

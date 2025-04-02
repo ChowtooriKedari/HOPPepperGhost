@@ -1,6 +1,17 @@
 {
   "name": "HOPVideoUploadApplication",
   "slug": "hopvideouploadapplication",
+  "platforms": ["ios", "android"],
+  "version": "1.0.0",
+  "ios": {
+    "bundleIdentifier": "com.hopfellows.peppersghostapp",
+    "buildNumber": "1",
+    "supportsTablet": true
+  },
+  "android": {
+    "package": "com.hopfellows.peppersghostapp",
+    "versionCode": 1
+  },
   "extra": {
     "eas": {
       "projectId": "47f8c5cb-4822-4930-9ef1-08449944251a"

@@ -6,10 +6,12 @@ import {
   Animated,
   TouchableOpacity,
   PanResponder,
+  Dimensions,
+  Image, // Import Image component
 } from "react-native";
 import Video from "react-native-video";
 import { ConfigContext } from "../Navigation/AppNavigator"; // ✅ Import context
-
+const { width, height } = Dimensions.get('window'); // Get screen dimensions
 const SplashScreen = ({ navigation }) => {
   const config = useContext(ConfigContext); // Get config from AWS
   const [isIntro, setIsIntro] = useState(true);
@@ -78,6 +80,12 @@ const SplashScreen = ({ navigation }) => {
         muted
       />
 
+      {/* Logo on Top of Video */}
+      <Image
+        source={require("../assets/hopFellow.png")} // Path to your logo file
+        style={styles.logo}
+      />
+
       {/* Welcome Screen */}
       {isIntro ? (
         <View style={styles.overlay}>
@@ -105,8 +113,8 @@ const SplashScreen = ({ navigation }) => {
         // Tutorial Video with Skip Button
         <>
           <Video
-            source={require("../assets/tutorial.mp4")} // Ensure this file exists
-            style={styles.backgroundVideo}
+            source={require("../assets/Instructions.mp4")} // Ensure this file exists
+            style={styles.backgroundVideoNew}
             resizeMode="cover"
             onEnd={handleSkipTutorial} // Auto-navigate after tutorial ends
           />
@@ -134,6 +142,22 @@ const styles = StyleSheet.create({
     right: 0,
     width: "100%",
     height: "100%",
+  },
+  backgroundVideoNew: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    bottom: 0,
+    right: 0,
+    width: "100%",
+    height: "100%",
+  },
+  logo: {
+    position: "absolute",
+    top: 50, // You can adjust this value to position the logo as needed
+    width: 120,  // Adjust the size of your logo
+    height: 120, // Adjust the size of your logo
+    resizeMode: "contain", // Keep the aspect ratio intact
   },
   overlay: {
     position: "absolute",
