@@ -1,11 +1,17 @@
 {
-  "name": "HOPVideoUploadApplication",
-  "slug": "hopvideouploadapplication",
+  "name": "Pepper's Ghost",
+  "slug": "hoppeppersghost",
   "platforms": ["ios", "android"],
   "version": "1.0.0",
+  "icon": "./src/assets/peppersGhostIcon.png",
+  "splash": {
+    "image": "./src/assets/splashscreen.png",
+    "resizeMode": "contain",
+    "backgroundColor": "#ffffff"
+  },
   "ios": {
     "bundleIdentifier": "com.hopfellows.peppersghostapp",
-    "buildNumber": "1",
+    "buildNumber": "2",
     "supportsTablet": true
   },
   "android": {
@@ -14,7 +20,7 @@
   },
   "extra": {
     "eas": {
-      "projectId": "47f8c5cb-4822-4930-9ef1-08449944251a"
+      "projectId": "d3e84831-7152-47c7-913f-e6250bd8cf3e"
     }
   }
 }

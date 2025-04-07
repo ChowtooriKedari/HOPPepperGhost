@@ -18,8 +18,8 @@ const ConfigLoader = ({ children }) => {
         const response = await axios.get(S3_JSON_URL);
         setConfig(response.data);
       } catch (error) {
-        console.log("Error");
-        console.error("Error fetching config new: ", error);
+        // console.log("Error");
+        // console.error("Error fetching config new: ", error);
       } finally {
         setLoading(false);
       }

@@ -113,7 +113,7 @@ const SplashScreen = ({ navigation }) => {
         // Tutorial Video with Skip Button
         <>
           <Video
-            source={require("../assets/Instructions.mp4")} // Ensure this file exists
+            source={require("../assets/InstructionsNew.mp4")} // Ensure this file exists
             style={styles.backgroundVideoNew}
             resizeMode="cover"
             onEnd={handleSkipTutorial} // Auto-navigate after tutorial ends

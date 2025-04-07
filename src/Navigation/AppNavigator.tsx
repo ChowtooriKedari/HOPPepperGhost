@@ -2,7 +2,7 @@ import React, { useState, useEffect, createContext } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import axios from "axios";
-
+import { StatusBar } from 'react-native';
 import LoginScreen from "../screens/LoginScreen";
 import HomeScreen from "../screens/HomeScreen";
 import UploadScreen from "../screens/UploadScreen";
@@ -19,7 +19,7 @@ export const AuthContext = createContext(null);
 export const ConfigContext = createContext(null);
 
 // AWS S3 Config URL
-const S3_JSON_URL = "https://pepperghostconfiguseast.s3.us-east-1.amazonaws.com/peppersGhostConfig.json";
+const S3_JSON_URL = `https://pepperghostconfiguseast.s3.us-east-1.amazonaws.com/peppersGhostConfig.json?${new Date().getTime()}`;
 
 export default function App() {
   const [config, setConfig] = useState(null);
@@ -30,10 +30,12 @@ export default function App() {
   useEffect(() => {
     const initializeApp = async () => {
       try {
+        StatusBar.setBarStyle('dark-content'); // or 'light-content'
+        StatusBar.setBackgroundColor('#fff'); // Set your desired background color
         // Fetch configuration from AWS S3 before rendering anything
         const response = await axios.get(S3_JSON_URL);
         const configData = response.data;
-        console.log("Loaded Config:", configData);
+        // console.log("Loaded Config:", configData);
         setConfig(configData);
 
         // ✅ Decide where to go after Splash

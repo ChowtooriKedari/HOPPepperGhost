@@ -88,13 +88,13 @@ const HomeScreen = ({ navigation }) => {
         `https://ibn3ijxg8b.execute-api.us-east-1.amazonaws.com/dev/fetchVideos`,
         { params: { searchQuery, category } }
       );
-      console.log(response.data);
+      // console.log(response.data);
       const parsedVideos = response.data;
       const sortedVideos = sortVideos(parsedVideos);
       setVideos(sortedVideos);
       // generateThumbnails(parsedVideos);
     } catch (error) {
-      console.error('Error fetching videos:', error);
+      // console.error('Error fetching videos:', error);
     }
     setIsLoading(false);
   };
@@ -109,7 +109,7 @@ const HomeScreen = ({ navigation }) => {
         });
         thumbnailsMap[video.videoId] = thumbnail.path;
       } catch (error) {
-        console.error(`Error generating thumbnail for ${video.videoId}:`, error);
+        // console.error(`Error generating thumbnail for ${video.videoId}:`, error);
       }
     }
     setThumbnails(thumbnailsMap);
@@ -295,7 +295,7 @@ const HomeScreen = ({ navigation }) => {
       )}
       {config?.showUpload && (
         <View style={styles.uploadButtonContainer}>
-          <Button title="UPLOAD VIDEO" onPress={() => navigation.navigate("Upload")} color="#fff" />
+          <Button title="UPLOAD VIDEO" onPress={() => navigation.navigate("Upload")} color="#000" />
         </View>
       )}
     </LinearGradient>
