@@ -18,6 +18,6 @@ The app is available for download on the **App Store**:
 - Built with a focus on digital arts integration  
 - Includes an admin workflow (restricted to Hopkins staff) for uploading and managing video content  
 - Public-facing users can view an introduction and all curated video content once the configuration is finalized
-- 
+  
 ## License
 This project is maintained by the Hopkins Center for the Arts. All rights reserved.
